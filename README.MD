@@ -26,13 +26,13 @@ python manage.py runserver
 
 
 ### Instalando o RabbitMQ Ubuntu
-sudo apt-get install rabbitmq-server
-sudo systemctl enable rabbitmq-server
-sudo systemctl start rabbitmq-server
-
+sudo apt-get install rabbitmq-server\
+sudo systemctl enable rabbitmq-server\
+sudo systemctl start rabbitmq-server\
 sudo systemctl status rabbitmq-server
 
 ### Iniciando Celery com RabbitMQ com 3 filas e autoscale de 5 ate 10
+#### Abra outro terminal e ative o mesmo ambiente virtual do projeto
 celery -A setup worker -l INFO -Q fila_padrao,fila_agendado,fila_chain --autoscale=10,5
 
 ### Acessando pelo browser
