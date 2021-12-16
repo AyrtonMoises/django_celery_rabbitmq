@@ -13,15 +13,16 @@ app = Celery('setup')
 # ele ira buscar CELERY_BROKER_URL ao inves de BROKER_URL
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
-# busca nos apps instalados no django com prefixo tasks
+# busca nos apps instalados no django os arquivos com prefixo tasks
 app.autodiscover_tasks()
 
-# cria filas individuais para cada task
-# app.conf.task_routes = [
-#     {'task.tasks.create_random_user_accounts': {'queue': 'fila_cria_usuarios'}},
-#     {'task.tasks.agenda_task': {'queue': 'fila_agendado'}},
-#     {'task.tasks.retorna_json': {'queue': 'fila_chain'}},
-#     {'task.tasks.pega_resultado': {'queue': 'fila_chain'}}
-#     ]
-
-#app.conf.task_routes = {'task.tasks.*': {'queue': 'fila_1'}} #todas as tasks do file em uma fila
+# cria filas para cada tipo de task
+app.conf.task_routes = [
+    {'fila.tasks.task_dia_atual': {'queue': 'fila_padrao'}},
+    {'fila.tasks.task_divisao_zero_random': {'queue': 'fila_padrao'}},
+    {'fila.tasks.loop': {'queue': 'fila_padrao'}},
+    {'fila.tasks.task_agendar': {'queue': 'fila_agendado'}},
+    {'fila.tasks.task_retorno_dict': {'queue': 'fila_chain'}},
+    {'fila.tasks.task_get_retorno_dict': {'queue': 'fila_chain'}}
+]
+#app.conf.task_routes = {'task.tasks.*': {'queue': 'fila_1'}} #ex. todas as tasks do arquivo em uma fila
