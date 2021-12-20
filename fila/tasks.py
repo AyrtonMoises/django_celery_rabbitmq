@@ -2,11 +2,11 @@ from celery import shared_task
 import random
 import time
 
+
 @shared_task
 def task_dia_atual(data_atual):
     '''Adiciona a fila a tarefa'''
     return data_atual
-
 
 @shared_task(bind=True, max_retries=3)
 def task_divisao_zero_random(self):
@@ -52,3 +52,15 @@ def loop(self, l):
         )
     #print('Task completed')
     return {'current': 100, 'total': 100}
+
+
+@shared_task
+def soma(x, y):
+    """ Função de soma simples usada para exemplo do crontab """
+    z = x + y
+    return z
+
+@shared_task
+def bom_dia(texto):
+    """ Função retornando simples usada para exemplo do crontab """
+    return texto
